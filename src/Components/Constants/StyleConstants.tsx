@@ -1,7 +1,7 @@
 export type Variant = 'text' | 'outlined' | 'contained' | undefined;
 
 export type Color =
-    'primary'
+  | 'primary'
   | 'secondary'
   | 'success'
   | 'error'
@@ -18,7 +18,7 @@ export type Color =
   | undefined;
 
 export type TypoVariants =
-    'h1'
+  | 'h1'
   | 'h2'
   | 'h3'
   | 'h4'
@@ -37,4 +37,3 @@ export type TypoVariants =
   | 'betaBody1'
   | 'subtitle3'
   | undefined;
-
