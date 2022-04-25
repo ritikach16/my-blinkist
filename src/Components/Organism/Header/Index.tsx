@@ -1,16 +1,15 @@
-import { makeStyles } from "@mui/styles";
+import { makeStyles, styled } from "@mui/styles";
 import React, { useState } from "react";
-import { Box, Container, createTheme, ThemeProvider } from "@mui/material";
+import {
+  Container,
+  createTheme,
+  ThemeProvider,
+  Typography,
+} from "@mui/material";
 import Logo from "../../Atom/Logo/Index";
 import Icons from "../../Atom/Icons/Index";
 import Dropdown from "../../Molecule/DropDown/Index";
 import SearchIcon from "../../../../public/Images/Svg/search.svg";
-import { DownArrowIcon } from "../../../Icons";
-import TypographyComponent from "../../Atom/Typography/Index";
-
-interface Props {
-  children: React.ReactNode;
-}
 
 const theme = createTheme({
   components: {
@@ -20,7 +19,6 @@ const theme = createTheme({
           color: "#03314B",
           fontWeight: "500",
           fontStyle: "normal",
-          fontFamily: "Cera Pro",
           fontSize: "16px",
           lineHeight: "20px",
         },
@@ -34,79 +32,106 @@ const useStyles = makeStyles({
     width: "124.9px",
     height: "26px",
   },
-  container: {
-    display: "flex",
-    flexDirection: "row",
-    width: "910px",
-    height: "86px",
-    gap: "40px",
-    margin: "0 auto",
-  },
-  mainContainer: {
-    display: "flex",
-    flexDirection: "row",
-    width: "910px",
-    height: "86px",
-    gap: "40px",
-    margin: "0 auto",
-  },
   navItem: {
     cursor: "pointer",
     color: "#03314B",
-    fontStyle : "normal",
-    fontSize: "16px",
+    fontStyle: "normal",
+    fontSize: "16px !important",
     lineHeight: "20px",
     fontWeight: "500",
-    alignSelf: "center",
     "&:hover": {
-      borderBottom: "1px solid #22C870",
+      borderBottom: "2px solid #22C870",
+    },
+  },
+  library: {
+    cursor: "pointer",
+    color: "#03314B",
+    fontStyle: "normal",
+    fontSize: "16px !important",
+    lineHeight: "20px",
+    fontWeight: "500",
+    "&:hover": {
+      borderBottom: "2px solid #22C870",
     },
   },
   account: {
     marginLeft: "auto",
-    alignSelf: "center"
+    position: "relative",
+    right: "0px",
+    alignSelf: "center",
   },
+  subContainer: {
+    display: "flex !important",
+    flexDirection: "row",
+    justifyContent: "space-between",
+    width: "100%",
+  },
+  pointer:{
+    cursor: "pointer"
+  }
 });
 
-const Header = (props: Props) => {
+const MainContainer = styled("div")({
+  display: "flex",
+  flexDirection: "row",
+  gap: "30px",
+  margin: "0 auto",
+});
+
+const Header = () => {
   const classes = useStyles();
-  const [isClicked, setClicked] = useState(false);
+  const [isExploreClicked, setExploreClicked] = useState<boolean>(false);
+  const [isAccountClicked, setAccountClicked] = useState<boolean>(false);
   const [iconStyle, setIconStyle] = useState({ transform: "rotate(0deg)" });
   const [accountStyle, setAccountStyle] = useState({
     transform: "rotate(0deg)",
   });
-  const displayDropdown = () => {
-    isClicked ? setClicked(false) : setClicked(true);
+  const displayExploreDropdown = () => {
+    isExploreClicked ? setExploreClicked(false) : setExploreClicked(true);
 
-    if (isClicked) {
+    if (isExploreClicked) {
       setIconStyle({ transform: "rotate(0deg)" });
     } else {
       setIconStyle({ transform: "rotate(180deg)" });
     }
   };
 
-  const displayAccountDetails = () => {};
+  const displayAccountDetails = () => {
+    isAccountClicked ? setAccountClicked(false) : setAccountClicked(true);
+
+    if (isAccountClicked) {
+      setAccountStyle({ transform: "rotate(0deg)" });
+    } else {
+      setAccountStyle({ transform: "rotate(180deg)" });
+    }
+  };
 
   return (
     <ThemeProvider theme={theme}>
-      <Container>
-      <Box className={classes.mainContainer}>
-        <Logo className={classes.logo} />
-        <Icons>
-          <img src={SearchIcon} alt="search" />
-        </Icons>
-        <Dropdown className={classes.navItem} title="Explore" />
-        <TypographyComponent className={classes.navItem} variant="body1">
-          My Library
-        </TypographyComponent>
-
-        <Dropdown
-          title="Account"
-          className={classes.account}
-          onClick={displayAccountDetails}
-          style={accountStyle}
-        />
-      </Box>
+      <Container className={classes.subContainer}>
+        <MainContainer>
+          <Logo className={classes.logo} />
+          <Icons className={classes.pointer}>
+            <img src={SearchIcon} alt="search" />
+          </Icons>
+          <Dropdown
+            className={classes.navItem}
+            onClick={displayExploreDropdown}
+            style={iconStyle}
+            title="Explore"
+          />
+          <Typography className={classes.library} variant="body1">
+            My Library
+          </Typography>
+        </MainContainer>
+        <MainContainer>
+          <Dropdown
+            title="Account"
+            className={classes.account}
+            onClick={displayAccountDetails}
+            style={accountStyle}
+          />
+        </MainContainer>
       </Container>
     </ThemeProvider>
   );

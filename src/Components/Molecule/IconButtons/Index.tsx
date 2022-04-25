@@ -1,21 +1,15 @@
 import React, { HTMLAttributes, ReactNode } from "react";
 import { Typography } from "@mui/material";
-import { StandardLonghandProperties } from "csstype";
-import {Color, TypoVariants} from "../../Constants/StyleConstants";
 import { makeStyles } from "@mui/styles";
 
 export interface Props extends HTMLAttributes<HTMLButtonElement> {
     variant?: "contained" | "text" | "outlined" | undefined;
     startIcon?: ReactNode;
     endIcon?: ReactNode;
-    color?: Color;
-    typoColor?: Color;
-    typography?: TypoVariants;
     children ?: ReactNode;
     onClick?: () => void;
-    left?: StandardLonghandProperties<string | number, string>["left"];
-    width?: StandardLonghandProperties<string | number, string>["width"];
-    height?: StandardLonghandProperties<string | number, string>["height"];
+    style ?: React.CSSProperties;
+    className ?: string;
   }
 
   const useStyles = makeStyles({
@@ -23,37 +17,26 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
       width: "14px",
       height: "14px",
       position: "relative",
+      marginRight: "5px"
     },
     textStyles: {
       fontFamily: "Cera Pro",
       fontWeight: "400",
       fontSize: "14px",
     },
-    Container: {
-      display: "flex",
-
-    }
   })
 
-const IconButtons = ({
-  color,
-  children,
-  startIcon,
-  endIcon,
-  width,
-  height
-}: Props) => {
+const IconButtons = (props: Props) => {
 
   const classes = useStyles();
   return (
     <>
-      <div className={classes.Container}>
-        <div data-testid="startIcon" className={classes.iconStyles}>{startIcon}</div>
-        <Typography variant="body1" className={classes.textStyles} sx={{ position: "relative", color: `${color}.main` }}
-        >
-          {children}
+      <div style= {props.style}>
+        <div data-testid="startIcon" className={classes.iconStyles}>{props.startIcon}</div>
+        <Typography variant="body1" className={props.className}>
+          {props.children}
         </Typography>
-        <div data-testid="endIcon">{endIcon}</div>
+        <div data-testid="endIcon">{props.endIcon}</div>
       </div>
     </>
   );

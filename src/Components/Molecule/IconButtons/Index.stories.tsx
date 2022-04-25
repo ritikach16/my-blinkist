@@ -3,6 +3,7 @@ import { ComponentMeta, ComponentStory } from "@storybook/react";
 import { AddIcon, Icon1 } from "../../../Icons";
 import IconButtons from "./Index";
 
+
 export default {
   title: "Molecule/IconButton",
   component: IconButtons,
@@ -33,9 +34,5 @@ Entrepreneurship.args = {
 			}}
 		/>
 	),
-	width: "296px",
-	left: "12px",
-	typography: "caption3",
-	color: "text3",
 };
 

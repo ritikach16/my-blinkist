@@ -1,30 +1,26 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Card, CardMedia, CardContent, CardActions } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "../../Atom/Typography/Index";
-import Button from "../../Molecule/Buttons/Index";
+import Reads from "../../Molecule/Reads/Index";
+import { AddIcon } from "../../../Icons";
 import IconButton from "../../Molecule/IconButtons/Index";
+import { TimeIcon, UserIcon } from "../../../Icons";
 
-export interface StateProps {
-  id: string;
+export interface CardBookPropsInterface {
+  children?: React.ReactNode;
+  id?: number;
   image?: string;
   title?: string;
   author?: string;
   minutes?: any;
-  reads?: any;
-  status?: {
-    addToLib: boolean;
-    isFinished: boolean;
-    readAgain: boolean;
-  };
-  type?: string;
-}
-
-export interface CardBookPropsInterface {
-  children?: React.ReactNode;
-  bookData: StateProps;
-  status?: string;
-  onClick ?: () => void;
+  reads?: string;
+  addToLib?: boolean;
+  isFinished?: boolean;
+  readAgain?: boolean;
+  num : number;
+  onClick?: () => void;
+  className?: string;
 }
 
 const useStyles = makeStyles({
@@ -32,7 +28,6 @@ const useStyles = makeStyles({
     margin: "5px",
     padding: "5px",
     display: "flex",
-    fontFamily: "Cera Pro",
   },
   cardStyles: {
     width: "284px",
@@ -40,6 +35,9 @@ const useStyles = makeStyles({
     background: "#FFFFFF",
     borderRadius: "8px",
     boxSizing: "border-box",
+    "&:hover": {
+      background: "#E1ECFC",
+    },
   },
   textStyles: {
     color: "#03314B",
@@ -50,14 +48,13 @@ const useStyles = makeStyles({
   },
   readStyles: {
     display: "flex",
-    justifyContent: "space-around",
+    justifyContent: "space-between",
     color: "#6D787E",
     boxSizing: "border-box",
   },
-  auther: {
+  author: {
     color: "#6D787E",
-    margin: "5px 0px",
-    fontFamily: "Cera Pro",
+    margin: "15px 0px",
     lineHeight: "20px",
     fontStyle: "normal",
     fontSize: "16px",
@@ -68,58 +65,133 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "center",
     alignItems: "center",
-    padding: "14px 24px",
     color: "#0365F2",
-    border: "1px solid #0365F2",
+    borderTop: "1px solid #E1ECFC",
     boxSizing: "border-box",
-    borderRadius: "0px 0px 8px 8px",
+    borderRadius: "0px 0px 4px 4px",
+    cursor: "pointer",
     "&:hover": {
       color: "white",
       backgroundColor: "#0365F2",
     },
   },
+  timeIconStyle: {
+    height: "16.67px",
+    color: "#6D787E",
+  },
+  userIconStyle: {
+    height: "17.5px",
+    color: "#6D787E",
+  },
+  buttonTextStyle: {
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontSize: "16px",
+    lineHeight: "20px",
+  },
+  optionalBtnTextStyles: {
+    fontStyle: "normal",
+    fontWeight: "500",
+    fontSize: "16px",
+    lineHeight: "20px",
+    color: "#0365F2",
+    cursor: "pointer",
+    margin: "auto",
+  },
 });
 
 const Cards = (props: CardBookPropsInterface) => {
-  const { children, bookData } = props;
+  const [bookData, setBookData] = useState({
+    id: 1,
+    image: "",
+    title: "",
+    author: "",
+    minutes: "",
+    reads: "",
+    addToLib: false,
+    isFinished: false,
+    readAgain: false,
+    type: {
+      trending: false,
+      featured: false,
+      justAdded: false,
+    }
+  });
 
-const handleClick = () => {
+  const handleClick = () => {
+
+  };
+
+  const addToFinished = (n: number) => {
+    if (bookData.isFinished) {
+      bookData.isFinished = false;
+    } else {
+      bookData.isFinished = true;
+    }
+  };
+
   
-}
-
   const classes = useStyles();
   return (
     <div className={classes.Container}>
-      <Card id={bookData.id} className={classes.cardStyles}>
-        <CardMedia component="img" image={bookData.image} alt="card image" />
+      <Card className={classes.cardStyles}>
+        <CardMedia component="img" image={props.image} alt="card image" />
         <CardContent>
           <Typography className={classes.textStyles} variant="subtitle1">
-            {bookData.title}
+            {props.title}
           </Typography>
           <Typography variant="body2">
-            <div className={classes.auther}>{bookData.author}</div>
+            <div className={classes.author}>{props.author}</div>
             <div className={classes.readStyles}>
-              {bookData.minutes}
-              {bookData.reads}
+              <Reads
+                startIcon={<TimeIcon />}
+                children={props.minutes}
+                className={classes.timeIconStyle}
+              />
+               {props.reads === undefined ? (null) : (<Reads
+                startIcon={<UserIcon />}
+                children={props.reads}
+                className={classes.userIconStyle}
+              />)}
             </div>
           </Typography>
         </CardContent>
 
-        {bookData.status?.isFinished ? (
-          <CardActions>
-            <Typography variant="body1">Finished</Typography>
+        {props.isFinished ? (
+          <CardActions onClick={() => addToFinished(props.num)}>
+            <Typography
+              variant="body1"
+              className={classes.optionalBtnTextStyles}
+            >
+              Finished
+            </Typography>
           </CardActions>
         ) : null}
 
-        {bookData.status?.readAgain ? (
-          <CardActions>
-            <Typography variant="body1">Read Again</Typography>
+        {props.readAgain ? (
+          <CardActions onClick={() => addToFinished(props.num)}>
+            <Typography
+              variant="body1"
+              className={classes.optionalBtnTextStyles}
+            >
+              Read Again
+            </Typography>
           </CardActions>
         ) : null}
 
-        {bookData.status?.addToLib ? (
-          <CardActions className={classes.addLibBtn} onClick = {handleClick}>
-            {props.children}
+        {props.addToLib ? (
+          <CardActions className={classes.addLibBtn} onClick={handleClick}>
+            <IconButton
+              className={classes.buttonTextStyle}
+              startIcon={<AddIcon />}
+              style={{
+                display: "flex",
+                height: "36px",
+                justifyContent: "center",
+                alignItems: "center",
+              }}
+              children="Add to Library"
+            ></IconButton>
           </CardActions>
         ) : null}
       </Card>

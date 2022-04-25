@@ -2,9 +2,8 @@ import React from 'react'
 import {ReactComponent as ExpandIcon } from "../../../../public/Images/Svg/downarrow.svg";
 import {ReactComponent as Account } from "../../../../public/Images/Svg/account.svg";
 import { makeStyles } from '@mui/styles';
-import {Box} from "@mui/material";
+import {Box, Typography} from "@mui/material";
 import Icons from '../../Atom/Icons/Index';
-import TypographyComponent from '../../Atom/Typography/Index';
 
 
 interface Props{
@@ -22,12 +21,17 @@ const useStyles = makeStyles({
         cursor: "pointer",
     },
     typography: {
-        alignSelf: "center",
-        fontFamily: "Cera Pro",
         fontWeight: "500",
         fontSize: "16px",
         lineHeight: "20px",
         color: "#03314B"
+    },
+    colorStyle:{
+        color: "#042330",
+    },
+    accountIcon : {
+        position: "relative",
+         top: "-7px"
     }
 })
 
@@ -38,15 +42,15 @@ const Dropdown = (props:Props) => {
         <Box className={classes.main}>
             {props.title === "Account" ? (
                 <Icons>
-                    <Account width="40px" height="40px"/>
+                    <Account width="40px" height="40px" className={classes.accountIcon}/>
                 </Icons>
             ): (
-                <TypographyComponent variant='body1' className={classes.typography}>
+                <Typography variant='body1' className={classes.typography}>
                     {props.title}
-                </TypographyComponent>
+                </Typography>
             )}
 
-            <Icons onClick={props.onClick} style={props.style}>
+            <Icons onClick={props.onClick} style={props.style} className={classes.colorStyle}>
                 <ExpandIcon/>
             </Icons>
         </Box>

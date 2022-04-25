@@ -1,64 +1,103 @@
-import * as React from 'react';
-import Tabs from '@mui/material/Tabs';
-import Tab from '@mui/material/Tab';
-import Card from "../Cards/Index";
-import Typography from '@mui/material/Typography';
-import Box from '@mui/material/Box';
+import React, { useEffect, useState } from "react";
+import Tab from "@mui/material/Tab";
+import { TabList, TabContext, TabPanel } from "@mui/lab";
+import { Container } from "@mui/material";
+import Cards from "../Cards/Index";
+import { makeStyles } from "@mui/styles";
 
-interface TabPanelProps {
-  children?: React.ReactNode;
-  index: number;
-  value: number;
-}
+const useStyles = makeStyles({
+  textStyles: {
+    textTransform: "none",
+  }
+});
 
-function TabPanel(props: TabPanelProps) {
-  const { children, value, index, ...other } = props;
+const  TabsBar = () => {
+  const classes = useStyles();
+  const [selectedTabs, setSelectedTabs] = useState("1");
+  const [finishedBooksTab, setFinishedBooksTab] = useState([
+    {
+      id: 1,
+      image: "",
+      title: "",
+      author: "",
+      minutes: "",
+      reads: "",
+      addToLib: "",
+      isFinished: "",
+      readAgain: "",
+      type: {
+        trending: false,
+        featured: false,
+        justAdded: false,
+      }
+    },
+  ]);
+
+  const handleChange = (event: React.SyntheticEvent, newValue: string) => {
+    setSelectedTabs(newValue);
+  };
+
+  const handleClick = () => {
+    console.log("clicked");
+  };
+
+  const handleReadAgainClick = (e : any) => {
+    console.log(e + "checking");
+  }
 
   return (
-    <div
-      role="tabpanel"
-      hidden={value !== index}
-      id={`simple-tabpanel-${index}`}
-      aria-labelledby={`simple-tab-${index}`}
-      {...other}
-    >
-      {value === index && (
-        <Box sx={{ p: 3 }}>
-          <Typography>{children}</Typography>
-        </Box>
-      )}
-    </div>
+    <TabContext value={selectedTabs}>
+      <TabList onChange={handleChange} aria-label="checking">
+        <Tab className={classes.textStyles} label="Currently reading" value="1" />
+        <Tab className={classes.textStyles} label="Finished" value="2" />
+      </TabList>
+      <TabPanel value="1">
+        <Container>
+          {finishedBooksTab
+            .slice(0, 9)
+            .filter((item) => !item.isFinished)
+            .map((books, idx) => {
+              return (
+                <Cards
+                  key={idx}
+                  title={books.title}
+                  author={books.author}
+                  minutes={books.minutes}
+                  addToLib={false}
+                  isFinished={!books.isFinished}
+                  image={books.image}
+                  num = {books.id}
+                  onClick={() => handleClick}
+                />
+              );
+            })}
+        </Container>
+      </TabPanel>
+      <TabPanel value="2">
+        <Container>
+          {finishedBooksTab
+            .slice(0, 9)
+            .filter((item) => !item.isFinished)
+            .map((books, idx) => {
+              return (
+                <Cards
+                  key={idx}
+                  title={books.title}
+                  author={books.author}
+                  minutes={books.minutes}
+                  addToLib={false}
+                  isFinished={false}
+                  image={books.image}
+                  num = {books.id}
+                  readAgain={true}
+                  onClick={() => handleReadAgainClick(this)}
+                />
+              );
+            })}
+        </Container>
+      </TabPanel>
+    </TabContext>
   );
 }
 
-function a11yProps(index: number) {
-  return {
-    id: `simple-tab-${index}`,
-    'aria-controls': `simple-tabpanel-${index}`,
-  };
-}
-
-export default function BasicTabs() {
-  const [value, setValue] = React.useState(0);
-
-  const handleChange = (event: React.SyntheticEvent, newValue: number) => {
-    setValue(newValue);
-  };
-
-  return (
-    <Box sx={{ width: '100%' }}>
-      <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
-        <Tabs value={value} onChange={handleChange} aria-label="basic tabs example">
-          <Tab label="Currently reading" {...a11yProps(0)} />
-          <Tab label="Finished" {...a11yProps(1)} />
-        </Tabs>
-      </Box>
-      <TabPanel value={value} index={0}>
-        Item One
-      </TabPanel>
-      <TabPanel value={value} index={1}>
-        Item Two
-      </TabPanel>
-    </Box>
-  );
-}
+export default TabsBar;

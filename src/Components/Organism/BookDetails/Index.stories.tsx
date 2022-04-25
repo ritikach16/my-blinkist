@@ -1,0 +1,33 @@
+import { ComponentMeta, ComponentStory } from '@storybook/react'
+import React from 'react'
+import BookDetail from './Index'
+import cardIm from "../../../../public/Images/cardImage2.png";
+
+export default{
+    title: "Organism/BookDetail",
+    component: BookDetail
+} as ComponentMeta<typeof BookDetail>;
+
+const Template: ComponentStory<typeof BookDetail> = (args) => (
+    <BookDetail {...args}/>
+);
+
+export const BookStory = Template.bind({});
+
+const bookData = {
+    id: 1,
+    title: "Beyond Entrepreneurship 2.0",
+    author: "Jim Collins & Bill Lazier",
+    subTitle: "Turning Your Business into an Enduring Great Company",
+    image: cardIm,
+    minute: "15-minute read",
+    status: {
+        isFinished: false,
+        isReading: true,
+        sendToKindle: false,
+    },
+}
+
+BookStory.args = {
+  AllBookData: bookData,
+}
