@@ -22,7 +22,7 @@ interface Props {
 
 interface CardGroupProps {
   bookData: Array<Props>;
-  title: string;
+  title ?: string;
   type: string;
 }
 
@@ -31,6 +31,7 @@ const useStyles = makeStyles({
         display : "flex",
         justifyContent: "center",
         alignItems: "center",
+        flexWrap: "wrap",
         gap: "40px",
     }
 })
@@ -74,7 +75,7 @@ const CardGroup = (props: CardGroupProps) => {
             reads={books.reads}
             minutes={books.minutes}
             image = {books.image}
-            addToLib = {true}
+            addToLib = {books.addToLib}
             onClick = {() => getBookDetails(key)}
           />
         );

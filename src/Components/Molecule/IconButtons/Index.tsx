@@ -20,7 +20,6 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
       marginRight: "5px"
     },
     textStyles: {
-      fontFamily: "Cera Pro",
       fontWeight: "400",
       fontSize: "14px",
     },

@@ -10,6 +10,8 @@ const useStyles = makeStyles({
     height: "398px",
     background: "#F1F6F4",
     color: "#6D787E",
+    zIndex: "10",
+    marginTop: "20px",
   },
   subContainers: {
     display: "flex",
@@ -47,10 +49,21 @@ const useStyles = makeStyles({
     "&:hover": {
       color: "#116BE9",
     },
+    "&:focus": {
+      color: "#116BE9",
+    },
+    "&:active": {
+      color: "#116BE9",
+    },
   },
 });
 
 const ExpandedNav = () => {
+
+  const handleClick = () => {
+    // navigate to entrepreneurship
+  }
+
   const classes = useStyles();
   return (
     <div className={classes.myContainer}>
@@ -70,8 +83,9 @@ const ExpandedNav = () => {
           {expandedNavItems[0].map((item, key) => {
             return (
               <IconButtons
-                style={{ display: "flex", margin: "5px", padding: "10px" }}
+                style={{ display: "flex", margin: "5px", padding: "10px", cursor: "pointer" }}
                 className={classes.textStyle}
+                onClick = {handleClick}
                 startIcon={
                   <img
                     className={classes.iconStyle}

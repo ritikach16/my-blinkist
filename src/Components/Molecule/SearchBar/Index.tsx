@@ -1,12 +1,25 @@
 import React from "react";
 import { TextField, InputAdornment } from "@mui/material";
 import { SearchIcon } from "../../../Icons";
+import { makeStyles } from "@mui/styles";
+
+const useStyles = makeStyles({
+	textStyles: {
+		color: "#3A4649",
+		borderBottom: "#6D787E",
+	},
+	"&:focus" : {
+		color: "#3A4649",
+		borderBottom: "#6D787E",
+	}
+})
 const SearchBar = () => {
+	const classes = useStyles();
 	return (
 		<div style={{ width: "912px", margin: "58px auto 0px auto" }}>
 			<TextField
-				color="secondary"
 				variant="filled"
+				className={classes.textStyles}
 				placeholder="Search by title or author"
 				InputProps={{
 					style: {

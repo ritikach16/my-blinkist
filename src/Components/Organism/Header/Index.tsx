@@ -1,5 +1,6 @@
 import { makeStyles, styled } from "@mui/styles";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import ExpandedNav from "../ExpandedNav/Index";
 import {
   Container,
   createTheme,
@@ -50,6 +51,9 @@ const useStyles = makeStyles({
     fontSize: "16px !important",
     lineHeight: "20px",
     fontWeight: "500",
+    display: "flex",
+    justifyContent: "center",
+    alignItems: "center",
     "&:hover": {
       borderBottom: "2px solid #22C870",
     },
@@ -65,6 +69,8 @@ const useStyles = makeStyles({
     flexDirection: "row",
     justifyContent: "space-between",
     width: "100%",
+    padding: "0px",
+    margin: "0px",
   },
   pointer:{
     cursor: "pointer"
@@ -106,6 +112,7 @@ const Header = () => {
     }
   };
 
+
   return (
     <ThemeProvider theme={theme}>
       <Container className={classes.subContainer}>
@@ -133,6 +140,7 @@ const Header = () => {
           />
         </MainContainer>
       </Container>
+      {isExploreClicked ? <ExpandedNav/> : null}
     </ThemeProvider>
   );
 };

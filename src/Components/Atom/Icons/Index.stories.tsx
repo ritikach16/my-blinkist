@@ -15,7 +15,7 @@ const Template : ComponentStory<typeof Icons> = args => (
 
 export const SearchIconStory = Template.bind({});
 SearchIconStory.args = {
-    children: <SearchIcon style={{color: '#3A4649', height:"22px", width : "22px"}}/>
+    children: <SearchIcon style={{color: '#3A4649', height:"23.7px", width : "23.7px"}}/>
 }
 
 export const DownArrowIconStory = Template.bind({});

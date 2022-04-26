@@ -19,6 +19,8 @@ const useStyles = makeStyles({
         flexDirection: "row",
         height: "24px",
         cursor: "pointer",
+        justifyContent: "center",
+        alignItems: "center",
     },
     typography: {
         fontWeight: "500",
@@ -31,7 +33,6 @@ const useStyles = makeStyles({
     },
     accountIcon : {
         position: "relative",
-         top: "-7px"
     }
 })
 

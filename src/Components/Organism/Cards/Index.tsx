@@ -25,12 +25,13 @@ export interface CardBookPropsInterface {
 
 const useStyles = makeStyles({
   Container: {
-    margin: "5px",
-    padding: "5px",
+    margin: "10px",
     display: "flex",
   },
   cardStyles: {
+    cursor: "pointer",
     width: "284px",
+    height: "466px",
     border: "1px solid #E1ECFC",
     background: "#FFFFFF",
     borderRadius: "8px",

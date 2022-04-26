@@ -1,8 +1,7 @@
 import { Box, Container, Typography } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import React from "react";
-import Cards from "../../Organism/Cards/Index";
-import TabsBar from "../../Organism/TabsBar/Index";
+import Tabsbar from "../../Organism/TabsBar/Index";
 
 interface Props {
   header: React.ReactNode;
@@ -12,23 +11,29 @@ interface Props {
 const useStyles = makeStyles({
   mainContainer: {
     width: "100%",
-    boxSizing : "border-box",
+    boxSizing: "border-box",
+    padding: "0px",
   },
   container: {
-    marginLeft: "220px",
-    marginTop: "80px",
-    boxSizing : "border-box",
-    width: "80%",
+    paddingLeft: "160px",
+    marginTop: "50px",
+    boxSizing: "border-box",
+    width: "100%",
   },
   headStyle: {
     color: "#03314B",
-    fontFamily: "Cera Pro",
     fontWeight: "700",
     fontSize: "36px",
     lineHeight: "45px",
     fontStyle: "normal",
     display: "flex",
     justifyContent: "flex-start",
+    width: "500px",
+  },
+  tabsStyle: {
+    marginTop: "40px",
+    boxSizing: "border-box",
+    width: "100%",
   },
 });
 
@@ -40,12 +45,11 @@ const MyLibrary = (props: Props) => {
         {props.header}
         <Container className={classes.container}>
           <Typography className={classes.headStyle}>My Library</Typography>
-          <Box>
-
-              {/* <Cards /> */}
-          </Box>
         </Container>
-        {props.footer}
+        <Container className={classes.container}>
+          <Tabsbar />
+        </Container>
+        <Box sx={{marginTop: "100px"}}>{props.footer}</Box>
       </Box>
     </>
   );
