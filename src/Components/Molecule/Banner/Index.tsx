@@ -5,7 +5,7 @@ import {
   ThemeProvider,
   Typography
 } from "@mui/material";
-import banner from "../../../../public/Images/banner.png";
+import banner from "../../../images/banner.png";
 import { styled , makeStyles} from "@mui/styles";
 
 interface bannerProps {
@@ -22,8 +22,9 @@ const theme = createTheme({
             fontSize: "18px",
             fontStyle: "normal",
             fontWeight: "400",
-            lineHeight: "23px",
+            lineHeight: "22.63px",
             color: "#6D787E",
+            fontFamily: "Cera Pro",
         },
         h4: {
           fontSize: "36px",
@@ -49,7 +50,7 @@ const useStyles = makeStyles({
         fontSize: "18px",
         fontStyle: "normal",
         fontWeight: "400",
-        lineHeight: "23px",
+        lineHeight: "22.63px",
         color: "#6D787E",
     }
 })

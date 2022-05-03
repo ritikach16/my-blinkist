@@ -1,94 +1,94 @@
-import entre from "/public/Images/Svg/entrepreneurship.svg";
-import politics from "/public/Images/Svg/politics.svg";
-import science from "/public/Images/Svg/science.svg"
-import ecomnomics from "/public/Images/Svg/ecomnomics.svg";
-import relationship from "/public/Images/Svg/relationship.svg";
-import culture from "/public/Images/Svg/culture.svg";
-import environment from "/public/Images/Svg/environment.svg";
-import inspiration from "/public/Images/Svg/inspiration.svg";
-import success from "/public/Images/Svg/success.svg";
-import pysocology from "/public/Images/Svg/psychology.svg";
-import health from "/public/Images/Svg/health.svg";
-import history from "/public/Images/Svg/history.svg";
-import education from "/public/Images/Svg/education.svg";
-import money from "/public/Images/Svg/money.svg";
-import communication from "/public/Images/Svg/communication.svg";
-import personal from "/public/Images/Svg/personal.svg";
-import marketing from "/public/Images/Svg/marketing.svg";
-import productivity from "/public/Images/Svg/productivity.svg";
+import {Entrepreneurship} from "../Icons";
+import {Politics} from "../Icons";
+import {Science} from "../Icons"
+import {Ecomnomics} from "../Icons";
+import {Relationship} from "../Icons";
+import {Culture} from "../Icons";
+import {Environment} from "../Icons";
+import {Inspiration} from "../Icons";
+import {Success} from "../Icons";
+import {Pysocology} from "../Icons";
+import {Health} from "../Icons";
+import {History} from "../Icons";
+import {Education} from "../Icons";
+import {Money} from "../Icons"; 
+import {Communication} from "../Icons";
+import {Personal} from "../Icons";
+import {Marketing} from "../Icons";
+import {Productivity} from "../Icons";
 
 const expandedItems = [
     [{
-        iconImage: entre,
+        iconImage: <Entrepreneurship/>,
         title: "Entrepreneurship"
     },
     {
-        iconImage:science, 
+        iconImage:<Science/>, 
         title: "Science"
     },
     {
-        iconImage: ecomnomics,
+        iconImage: <Ecomnomics/>,
         title: "Economics"
     },
     {
-        iconImage: culture,
+        iconImage: <Culture/>,
         title: "Corporate Culture"
     },
     {
-        iconImage: pysocology,
+        iconImage: <Pysocology/>,
         title: "Psychology"
     },
     {
-        iconImage: environment,
+        iconImage: <Environment/>,
         title: "Nature & Environment"
     }],
     [{
-        iconImage: politics,
+        iconImage: <Politics/>,
         title: "Politics"
     },
     {
-        iconImage: health,
+        iconImage: <Health/>,
         title: "Health & Nutrition"
     },
     {
-        iconImage: history,
+        iconImage: <History/>,
         title: "History"
     },
     {
-        iconImage: inspiration,
+        iconImage: <Inspiration/>,
         title: "Motivation & Inspiration"
     },
     {
-        iconImage: productivity,
+        iconImage: <Productivity/>,
         title: "Productivity"
     },
     {
-        iconImage: success,
+        iconImage: <Success/>,
         title: "Career & Success"
     }],
     [{
-        iconImage: marketing,
+        iconImage: <Marketing/>,
         title: "Marketing & Sales"
     },
     
     {
-        iconImage: personal,
+        iconImage: <Personal/>,
         title: "Personal Development"
     },
     {
-        iconImage: communication,
+        iconImage: <Communication/>,
         title: "Communication Skills"
     },
     {
-        iconImage: money,
+        iconImage: <Money/>,
         title: "Money & Investments"
     },
     {
-        iconImage: relationship,
+        iconImage: <Relationship/>,
         title: "Sex & Relationship"
     },
     {
-        iconImage: education,
+        iconImage: <Education/>,
         title: "Education"
     }]
     

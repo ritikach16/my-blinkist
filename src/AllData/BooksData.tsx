@@ -1,16 +1,15 @@
-import b1 from "/public/Images/cardImage1.png";
-import b2 from "/public/Images/cardImage2.png";
-import b3 from "/public/Images/cardImage3.png";
-import b4 from "/public/Images/4.png";
-import b5 from "/public/Images/5.png";
-import b6 from "/public/Images/6.png";
-import b7 from "/public/Images/7.png";
-import b8 from "/public/Images/8.png";
-import b9 from "/public/Images/9.png";
-import b10 from "/public/Images/1.png";
-import b11 from "/public/Images/2.png";
-import b12 from "/public/Images/3.png";
-
+import b1 from "../images/cardImage1.png";
+import b2 from "../images/cardImage2.png";
+import b3 from "../images/cardImage3.png";
+import b4 from "../images/4.png";
+import b5 from "../images/5.png";
+import b6 from "../images/6.png";
+import b7 from "../images/7.png";
+import b8 from "../images/8.png";
+import b9 from "../images/9.png";
+import b10 from "../images/1.png";
+import b11 from "../images/2.png";
+import b12 from "../images/3.png";
 
 const bookData = [
   {

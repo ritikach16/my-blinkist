@@ -7,8 +7,8 @@ export default{
     component: ButtonGroup
 } as ComponentMeta<typeof ButtonGroup>;
 
-const Template: ComponentStory<typeof ButtonGroup> = () => (
-    <ButtonGroup />
+const Template: ComponentStory<typeof ButtonGroup> = (args) => (
+    <ButtonGroup {...args}/>
 );
 
 export const ButtonsGrp = Template.bind({});

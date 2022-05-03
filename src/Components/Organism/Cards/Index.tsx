@@ -1,11 +1,15 @@
 import React, { useEffect, useState } from "react";
-import { Card, CardMedia, CardContent, CardActions } from "@mui/material";
+import { Card, CardMedia, CardContent, CardActions, ThemeProvider } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Typography from "../../Atom/Typography/Index";
 import Reads from "../../Molecule/Reads/Index";
 import { AddIcon } from "../../../Icons";
 import IconButton from "../../Molecule/IconButtons/Index";
 import { TimeIcon, UserIcon } from "../../../Icons";
+import axios from "axios";
+import URL from "../../../AllData/Url";
+import theme from "../../Theme/Theme";
+import { useNavigate } from "react-router-dom";
 
 export interface CardBookPropsInterface {
   children?: React.ReactNode;
@@ -18,7 +22,7 @@ export interface CardBookPropsInterface {
   addToLib?: boolean;
   isFinished?: boolean;
   readAgain?: boolean;
-  num : number;
+  num: number;
   onClick?: () => void;
   className?: string;
 }
@@ -84,12 +88,6 @@ const useStyles = makeStyles({
     height: "17.5px",
     color: "#6D787E",
   },
-  buttonTextStyle: {
-    fontStyle: "normal",
-    fontWeight: "500",
-    fontSize: "16px",
-    lineHeight: "20px",
-  },
   optionalBtnTextStyles: {
     fontStyle: "normal",
     fontWeight: "500",
@@ -97,7 +95,7 @@ const useStyles = makeStyles({
     lineHeight: "20px",
     color: "#0365F2",
     cursor: "pointer",
-    margin: "auto",
+    margin: "0px auto !important",
   },
 });
 
@@ -116,87 +114,133 @@ const Cards = (props: CardBookPropsInterface) => {
       trending: false,
       featured: false,
       justAdded: false,
-    }
+    },
   });
 
-  const handleClick = () => {
+  const [count, setCount] = useState(0);
+  const navigate = useNavigate();
+  useEffect(() => {
+    // console.log(props.num);
 
-  };
+    const myBookData = async (n: number) => {
+      if (n && n !== 0) {
+        const res = await axios.get(`${URL}/myBookData/${n}`);
+        const books = res.data;
+        setBookData(books);
+        // console.log(bookData);
+      }
+    };
+    myBookData(props.num);
+  }, [count, props.num]);
 
-  const addToFinished = (n: number) => {
+  const handleFinished = async (n: number) => {
+    // bookData.isFinished = true;
     if (bookData.isFinished) {
       bookData.isFinished = false;
     } else {
       bookData.isFinished = true;
     }
+    if (count < 0) {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
+
+    await axios.put(`${URL}/myBookData/${n}`, bookData);
   };
 
-  
+  const handleCardData = async(n : number) => {
+    const res = await axios.get(`${URL}/myBookData/${n}`);
+    // console.log(res.data); getting the data
+    
+    await axios.put(`http://localhost:5000/myBookDetail/`, res.data);
+    navigate("/bookDetails")
+  }
+
+  const addToLibrary = async (n: number) => {
+    bookData.addToLib = false;
+    bookData.isFinished = true;
+    if (count < 0) {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
+    await axios.put(`${URL}/myBookData/${10}`, bookData); // updating lib
+  };
+
   const classes = useStyles();
   return (
-    <div className={classes.Container}>
-      <Card className={classes.cardStyles}>
-        <CardMedia component="img" image={props.image} alt="card image" />
-        <CardContent>
-          <Typography className={classes.textStyles} variant="subtitle1">
-            {props.title}
-          </Typography>
-          <Typography variant="body2">
-            <div className={classes.author}>{props.author}</div>
-            <div className={classes.readStyles}>
-              <Reads
-                startIcon={<TimeIcon />}
-                children={props.minutes}
-                className={classes.timeIconStyle}
-              />
-               {props.reads === undefined ? (null) : (<Reads
-                startIcon={<UserIcon />}
-                children={props.reads}
-                className={classes.userIconStyle}
-              />)}
-            </div>
-          </Typography>
-        </CardContent>
-
-        {props.isFinished ? (
-          <CardActions onClick={() => addToFinished(props.num)}>
-            <Typography
-              variant="body1"
-              className={classes.optionalBtnTextStyles}
-            >
-              Finished
+    <ThemeProvider theme = {theme}>
+      <div className={classes.Container}>
+        <Card className={classes.cardStyles}>
+          <CardMedia component="img" image={props.image} alt="card image" />
+          <CardContent style={{padding: "12px"}} onClick = {() => handleCardData(props.num)}>
+            <Typography className={classes.textStyles} variant="subtitle1">
+              {props.title}
             </Typography>
-          </CardActions>
-        ) : null}
-
-        {props.readAgain ? (
-          <CardActions onClick={() => addToFinished(props.num)}>
-            <Typography
-              variant="body1"
-              className={classes.optionalBtnTextStyles}
-            >
-              Read Again
+            <Typography variant="body2">
+              <div className={classes.author}>{props.author}</div>
+              <div className={classes.readStyles}>
+                <Reads
+                  startIcon={<TimeIcon />}
+                  children={props.minutes}
+                  className={classes.timeIconStyle}
+                />
+                {props.reads === undefined ? null : (
+                  <Reads
+                    startIcon={<UserIcon />}
+                    children={props.reads}
+                    className={classes.userIconStyle}
+                  />
+                )}
+              </div>
             </Typography>
-          </CardActions>
-        ) : null}
+          </CardContent>
 
-        {props.addToLib ? (
-          <CardActions className={classes.addLibBtn} onClick={handleClick}>
-            <IconButton
-              className={classes.buttonTextStyle}
-              startIcon={<AddIcon />}
-              style={{
-                display: "flex",
-                height: "36px",
-                justifyContent: "center",
-                alignItems: "center",
-              }}
-              children="Add to Library"
-            ></IconButton>
-          </CardActions>
-        ) : null}
-      </Card>
-    </div>
+          {props.isFinished ? (
+          <>
+            <CardActions onClick={() => handleFinished(props.num)}>
+              <Typography
+                variant="body1"
+                className={classes.optionalBtnTextStyles}
+              >
+                Finished
+              </Typography>
+            </CardActions>
+          </>
+          ) : null}
+
+          {props.readAgain ? (
+            <CardActions onClick={() => handleFinished(props.num)}>
+              <Typography
+                variant="body1"
+                className={classes.optionalBtnTextStyles}
+              >
+                Read Again
+              </Typography>
+            </CardActions>
+          ) : null}
+
+          {props.addToLib ? (
+            <CardActions
+              className={classes.addLibBtn}
+              onClick={() => addToLibrary(props.num)}
+            >
+              <IconButton
+                startIcon={<AddIcon />}
+                style={{
+                  display: "flex",
+                  height: "36px",
+                  justifyContent: "center",
+                  alignItems: "center",
+                }}
+                children="Add to library"
+              ></IconButton>
+            </CardActions>
+          ) : null}
+        </Card>
+      </div>
+    </ThemeProvider>
   );
 };
 export default Cards;

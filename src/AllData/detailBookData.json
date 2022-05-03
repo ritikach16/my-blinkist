@@ -1,0 +1,16 @@
+{
+  "myBookDetail": {
+    "id": 1,
+    "title": "Being Boss",
+    "author": "Kathleen Shannon and Emily",
+    "image": "/Images/cardImage1.png",
+    "minutes": "13-minute read",
+    "addToLib": true,
+    "isFinished": false,
+    "type": {
+      "trending": true,
+      "justAdded": false,
+      "featured": false
+    }
+  }
+}

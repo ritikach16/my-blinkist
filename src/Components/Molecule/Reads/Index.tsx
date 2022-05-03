@@ -17,7 +17,7 @@ const useStyles = makeStyles({
     fontWeight: "400",
     fontSize: "14px !important",
     lineHeight: "17.6px",
-    color: "#6D787E",
+    color: "#6D787E !important",
   },
   Container: {
     display: "flex",
@@ -31,7 +31,7 @@ const Reads = (props: Props) => {
     <>
       <div className={classes.Container}>
         <div className={props.className}>{props.startIcon}</div>
-        <Typography className={classes.textStyles}>{props.children}</Typography>
+        <Typography variant="body2" className={classes.textStyles}>{props.children}</Typography>
         <div className={props.className}>{props.endIcon}</div>
       </div>
     </>

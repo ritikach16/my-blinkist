@@ -8,8 +8,8 @@ export default{
     component: BookDetail
 } as ComponentMeta<typeof BookDetail>;
 
-const Template: ComponentStory<typeof BookDetail> = (args) => (
-    <BookDetail {...args}/>
+const Template: ComponentStory<typeof BookDetail> = () => (
+    <BookDetail/>
 );
 
 export const BookStory = Template.bind({});
@@ -18,8 +18,9 @@ const bookData = {
     id: 1,
     title: "Beyond Entrepreneurship 2.0",
     author: "Jim Collins & Bill Lazier",
-    subTitle: "Turning Your Business into an Enduring Great Company",
+    subTitle: "",
     image: cardIm,
+    num:18,
     minute: "15-minute read",
     status: {
         isFinished: false,

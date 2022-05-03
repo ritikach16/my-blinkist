@@ -1,10 +1,12 @@
 import React, { useEffect, useState } from "react";
 import Tab from "@mui/material/Tab";
 import { TabList, TabContext, TabPanel } from "@mui/lab";
-import { Box, Container } from "@mui/material";
+import { Box } from "@mui/material";
 import Cards from "../Cards/Index";
 import { makeStyles } from "@mui/styles";
-import booksData from "../../../AllData/BooksData";
+import axios from "axios";
+import URL from "../../../AllData/Url";
+import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   textStyles: {
@@ -38,7 +40,7 @@ const useStyles = makeStyles({
 const TabsBar = () => {
   const classes = useStyles();
   const [selectedTabs, setSelectedTabs] = useState("1");
-  const [finishedBooksTab, setFinishedBooksTab] = useState([
+  const [booksTab, setBooksTab] = useState([
     {
       id: 1,
       image: "",
@@ -57,17 +59,30 @@ const TabsBar = () => {
     },
   ]);
 
+  const [count, setCount] = useState(0);
+const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setSelectedTabs(newValue);
   };
 
   const handleClick = () => {
-    console.log("clicked");
+    if (count < 0) {
+      setCount(count + 1);
+    } else {
+      setCount(count - 1);
+    }
   };
 
-  const handleReadAgainClick = (e: any) => {
-    console.log(e + "checking");
-  };
+  useEffect(() => {
+    const myBookdata = async () => {
+      const res = await axios.get(`${URL}/myBookData/`);
+      const books = res.data;
+      
+      setBooksTab(books);
+      
+    };
+    myBookdata();
+  }, []);
 
   return (
     <TabContext value={selectedTabs}>
@@ -77,15 +92,22 @@ const TabsBar = () => {
         aria-label="checking"
       >
         <Tab
+          onClick={handleClick}
           className={classes.textStyles}
           label="Currently reading"
           value="1"
         />
-        <Tab className={classes.textStyles} label="Finished" value="2" />
+        <Tab
+          className={classes.textStyles}
+          onClick={handleClick}
+          label="Finished"
+          value="2"
+        />
       </TabList>
-      <TabPanel sx={{padding: "0px"}} value="1">
+      <TabPanel sx={{ padding: "0px" }} value="1">
         <Box className={classes.container}>
-          {booksData
+          {booksTab
+            .slice(0, 9)
             .filter((item) => !item.isFinished)
             .map((books, idx) => {
               return (
@@ -98,35 +120,16 @@ const TabsBar = () => {
                   isFinished={!books.isFinished}
                   image={books.image}
                   num={books.id}
-                  onClick={() => handleClick}
+                  onClick={ () => console.log("")}
                 />
               );
             })}
-          {/* {finishedBooksTab
-            .slice(0, 9)
-            .filter((item) => !item.isFinished)
-            .map((books, idx) => {
-              return (
-                <Cards
-                  key={idx}
-                  title={books.title}
-                  author={books.author}
-                  minutes={books.minutes}
-                  addToLib={false}
-                  isFinished={!books.isFinished}
-                  image={books.image}
-                  num = {books.id}
-                  onClick={() => handleClick}
-                />
-              );
-            })} */}
         </Box>
       </TabPanel>
-      <TabPanel value="2">
-        <Container>
-          {finishedBooksTab
-            .slice(0, 9)
-            .filter((item) => !item.isFinished)
+      <TabPanel sx={{ padding: "0px" }} value="2">
+        <Box className={classes.container}>
+          {booksTab
+            .filter((item) => item.isFinished)
             .map((books, idx) => {
               return (
                 <Cards
@@ -139,11 +142,11 @@ const TabsBar = () => {
                   image={books.image}
                   num={books.id}
                   readAgain={true}
-                  onClick={() => handleReadAgainClick(this)}
+                  onClick={()=> {console.log("")}}
                 />
               );
             })}
-        </Container>
+        </Box>
       </TabPanel>
     </TabContext>
   );

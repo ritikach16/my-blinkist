@@ -1,5 +1,5 @@
 import React from 'react'
-import Logo from "../../../../public/Images/logo.png";
+import Logo from "../../../images/logo.png";
 
 interface Props {
     className?: string;

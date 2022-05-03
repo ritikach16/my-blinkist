@@ -32,13 +32,14 @@ const useStyles = makeStyles({
         justifyContent: "center",
         alignItems: "center",
         flexWrap: "wrap",
-        gap: "40px",
+        gap: "19.2px",
     }
 })
 
 const CardGroup = (props: CardGroupProps) => {
 
     const classes = useStyles();
+    
   const [displayBookDetails, setDisplayBookDetails] = useState(props.bookData);
 
   useEffect(() => {

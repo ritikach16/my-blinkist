@@ -47,23 +47,24 @@ const Container = styled("div")({
     width: "100%",
     display: "flex",
     flexDirection: "column",
-    height: "370px",
+    height: "390px",
     gap: "48px",
     backgroundColor: "#F1F6F4",
     position: "relative",
     left: 0,
     bottom: 0,
     right: 0,
+    justifyContent: "center",
+    alignItems: "center",
 });
 
 const SubContainer = styled("div")({
-    width: "952px",
+    width: "950px",
     height: "224px",
     gap: "32px",
     position: "relative",
     top: "38px",
     display: "flex",
-    left: "244px",
     bottom: "108px",
   });
   
@@ -88,8 +89,8 @@ const SubContainer = styled("div")({
     width: "546px",
     height: "22px",
     position: "relative",
-    top: "48px",
-    left: "244px",
+    top: "20px",
+    left: "0px",
   });
   
   type Props = {};

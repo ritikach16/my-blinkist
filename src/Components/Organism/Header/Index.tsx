@@ -10,7 +10,8 @@ import {
 import Logo from "../../Atom/Logo/Index";
 import Icons from "../../Atom/Icons/Index";
 import Dropdown from "../../Molecule/DropDown/Index";
-import SearchIcon from "../../../../public/Images/Svg/search.svg";
+import {SearchIcon} from "../../../Icons";
+import { useNavigate } from "react-router-dom";
 
 const theme = createTheme({
   components: {
@@ -49,6 +50,7 @@ const useStyles = makeStyles({
     color: "#03314B",
     fontStyle: "normal",
     fontSize: "16px !important",
+    fontFamily: "Cera Pro !important",
     lineHeight: "20px",
     fontWeight: "500",
     display: "flex",
@@ -68,20 +70,23 @@ const useStyles = makeStyles({
     display: "flex !important",
     flexDirection: "row",
     justifyContent: "space-between",
-    width: "100%",
+    width: "970px !important",
     padding: "0px",
     margin: "0px",
+    height: "86px",
+    alignItems: "center",
   },
   pointer:{
-    cursor: "pointer"
+    cursor: "pointer",
+    position: "relative",
+    top: "5px",
   }
 });
 
 const MainContainer = styled("div")({
   display: "flex",
   flexDirection: "row",
-  gap: "30px",
-  margin: "0 auto",
+  gap: "40px",
 });
 
 const Header = () => {
@@ -112,6 +117,11 @@ const Header = () => {
     }
   };
 
+  const navigate = useNavigate();
+  const handleClick = () => {
+    //  history.push("/")
+    navigate("/");
+  }
 
   return (
     <ThemeProvider theme={theme}>
@@ -119,7 +129,7 @@ const Header = () => {
         <MainContainer>
           <Logo className={classes.logo} />
           <Icons className={classes.pointer}>
-            <img src={SearchIcon} alt="search" />
+            <SearchIcon sx={{width: "20.31px", height: "20.31px"}} />
           </Icons>
           <Dropdown
             className={classes.navItem}
@@ -127,7 +137,7 @@ const Header = () => {
             style={iconStyle}
             title="Explore"
           />
-          <Typography className={classes.library} variant="body1">
+          <Typography className={classes.library} onClick={handleClick} variant="body1">
             My Library
           </Typography>
         </MainContainer>
@@ -146,3 +156,4 @@ const Header = () => {
 };
 
 export default Header;
+

@@ -28,11 +28,28 @@ const theme = createTheme({
           fontStyle: "normal",
           fontFamily: "Cera Pro",
           lineHeight: "20px",
+          borderRadius: "4px"
         },
       },
     },
+    MuiButton: {
+      styleOverrides: {
+        root: {
+          fontStyle: "normal",
+          fontWeight: "500",
+          fontSize: "16px",
+          lineHeight: "20px"
+        }
+      }
+    }
+  },
+  typography: {
+    button: {
+      textTransform: "none"
+    }
   },
 });
+
 
 const useStyles = makeStyles({
   buttons: {

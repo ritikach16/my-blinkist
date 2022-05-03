@@ -1,11 +1,18 @@
 import React from 'react';
-import './App.css';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import BookDetailView from './Pages/BookDetailView/Index';
+import EntrepreneurshipPage from './Pages/Entrepreneurship/Index';
+import MyLibrary from './Pages/MyLibrary/Index';
 
 function App() {
   return (
-    <div className="App">
-     
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/bookDetails' element = {<BookDetailView/>} />
+        <Route path='/entrepreneur' element={<EntrepreneurshipPage/>} />
+        <Route path='/' element = {<MyLibrary/>} />
+      </Routes>
+    </BrowserRouter>
   );
 }
 

@@ -1,10 +1,12 @@
-import { Container, Typography } from "@mui/material";
+import { Box, Container, ThemeProvider, Typography } from "@mui/material";
 import { makeStyles, styled } from "@mui/styles";
-import React, { useState } from "react";
-import ButtonGroup from "../../Molecule/ButtonGroups/Index";
+import React, { useEffect, useState } from "react";
+import ButtonGroup from "../ButtonGroups/Index";
 import { Time } from "../../Molecule/Reads/Index.stories";
 import { TimeIcon } from "../../../Icons";
 import BookDetailTab from "../BookDetailTab/Index";
+import axios from "axios";
+import theme from "../../Theme/Theme";
 
 export type bookData = {
   id: number;
@@ -14,19 +16,15 @@ export type bookData = {
   image: string;
   minute?: string;
   reads?: string;
-  status?: {
+  addToLib: boolean;
+  isFinished: boolean;
+  readAgain: boolean;
+  type?: {
     isFinished?: boolean;
     isReading?: boolean;
     sendToKindle?: boolean;
   };
 };
-
-interface Props {
-  AllBookData: bookData;
-  className?: string;
-  style?: React.CSSProperties;
-  children?: React.ReactNode;
-}
 
 const useStyles = makeStyles({
   mainHead: {
@@ -63,17 +61,15 @@ const useStyles = makeStyles({
     textAlign: "left",
   },
   subtitle: {
-    fontWeight: "400",
     fontStyle: "normal",
-    fontSize: "20px",
-    lineHeight: "25px",
-    color: "#03314B",
+    fontSize: "20px !important",
+    lineHeight: "25px !important",
   },
 });
 
 const LeftContainer = styled("div")({
   boxSizing: "border-box",
-  height: "100px",
+  // height: "100px",
   display: "flex",
   flexDirection: "column",
   gap: "23px",
@@ -92,49 +88,85 @@ const Wrapper = styled("div")({
   margin: "0 auto",
 });
 
-const BookDetail = ({ AllBookData, ...props }: Props) => {
+const BookDetail = () => {
+  const [bookData, setBookData] = useState<bookData>({
+    id: 0,
+    title: "",
+    author: "",
+    image: "",
+    minute: "",
+    reads: "",
+    addToLib: false,
+    isFinished: false,
+    readAgain: false,
+    type: {
+      isFinished: false,
+      isReading: false,
+      sendToKindle: false,
+    },
+  });
+
+  useEffect(() => {
+    const data = async() => {
+      const res = await axios.get(`http://localhost:5000/myBookDetail/`);
+      const books = res.data;
+      console.log(books);
+      
+      setBookData(books);
+    };
+    return() => {
+      data();
+    }
+  },[]);
+
   const classes = useStyles();
   return (
     <>
       <Wrapper>
-        <LeftContainer>
-          <Typography variant="body2" className={classes.subHead}>
-            Get the key ideas from
-          </Typography>
-          <Typography variant="h1" className={classes.mainHead}>
-            {AllBookData.title}
-          </Typography>
-          <Typography variant="subtitle1" className={classes.subtitle}>
-            {AllBookData.subTitle}
-          </Typography>
-          <Typography variant="body1" className={classes.author}>
-            {AllBookData.author}
-          </Typography>
-          <Typography variant="caption">
-            <Time
-              startIcon={<TimeIcon />}
-              className={classes.minute}
-              children={AllBookData.minute}
-            ></Time>
-          </Typography>
-          <Container>
-            <ButtonGroup></ButtonGroup>
-          </Container>
-            <BookDetailTab
-              synopsis={
-                "Beyond Entrepreneurship 2.0 (2020) updates Jim Collins and Bill Lazier’s essential 1992 business handbook, Beyond Entrepreneurship for the entrepreneurs, visionaries, and innovators of today. This new edition combines the timeless business advice and strategy of the original text, supplemented with cutting-edge insights and case studies pertinent to today’s business world."
-              }
-              aboutAuthor={"about the author"}
-              whoIsItFor={"who is it for"}
+        <ThemeProvider theme={theme}>
+          <LeftContainer>
+            <Typography variant="body2" className={classes.subHead}>
+              Get the key ideas from
+            </Typography>
+            <Typography variant="h1" className={classes.mainHead}>
+              {bookData.title}
+              {/* Beyond Entrepreneurship 2.0 */}
+            </Typography>
+            <Typography variant="body2" className={classes.subtitle}>
+              Turning Your Business into an Enduring Great Company
+            </Typography>
+            <Typography variant="body1" className={classes.author}>
+              {bookData.author}
+              {/* Jim Collins & Bill Lazier */}
+            </Typography>
+            <Typography variant="caption">
+              <Time
+                startIcon={<TimeIcon />}
+                className={classes.minute}
+                children={"15-minute read"}
+              ></Time>
+            </Typography>
+            <Box>
+              <ButtonGroup num={10}></ButtonGroup>
+            </Box>
+            <Box>
+              <BookDetailTab
+                synopsis={
+                  "Beyond Entrepreneurship 2.0 (2020) updates Jim Collins and Bill Lazier’s essential 1992 business handbook, Beyond Entrepreneurship for the entrepreneurs, visionaries, and innovators of today. This new edition combines the timeless business advice and strategy of the original text, supplemented with cutting-edge insights and case studies pertinent to today’s business world."
+                }
+                aboutAuthor={"about the author"}
+                whoIsItFor={"who is it for"}
+              />
+            </Box>
+          </LeftContainer>
+          <RightContainer>
+            <img
+              src={bookData.image}
+              className={classes.imageStyle}
+              alt="book cardImg"
             />
-        </LeftContainer>
-        <RightContainer>
-          <img
-            src={AllBookData.image}
-            className={classes.imageStyle}
-            alt="book cardImg"
-          />
-        </RightContainer>
+          </RightContainer>
+        </ThemeProvider>
       </Wrapper>
     </>
   );
