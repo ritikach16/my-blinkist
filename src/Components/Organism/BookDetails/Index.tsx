@@ -8,7 +8,8 @@ import BookDetailTab from "../BookDetailTab/Index";
 import axios from "axios";
 import theme from "../../Theme/Theme";
 
-export type bookData = {
+const URL = `http://localhost:5000`
+export type booksData = {
   id: number;
   title: string;
   author: string;
@@ -89,7 +90,7 @@ const Wrapper = styled("div")({
 });
 
 const BookDetail = () => {
-  const [bookData, setBookData] = useState<bookData>({
+  const [bookData, setBookData] = useState<booksData>({
     id: 0,
     title: "",
     author: "",
@@ -108,15 +109,14 @@ const BookDetail = () => {
 
   useEffect(() => {
     const data = async() => {
-      const res = await axios.get(`http://localhost:5000/myBookDetail/`);
+      const res = await axios.get(`${URL}/myBookDetail/`);
       const books = res.data;
       console.log(books);
       
       setBookData(books);
     };
-    return() => {
       data();
-    }
+    
   },[]);
 
   const classes = useStyles();

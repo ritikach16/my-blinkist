@@ -1,11 +1,11 @@
-import { Box, ThemeProvider } from "@mui/material";
-import { createTheme } from "@mui/material/styles";
+import { Box } from "@mui/material";
 import { makeStyles } from "@mui/styles";
 import Buttons from "../../Molecule/Buttons/Index";
 import { RightArrowIcon } from "../../../Icons";
 import { useEffect, useState } from "react";
 import axios from "axios";
 import URL from "../../../AllData/Url";
+import { useNavigate } from "react-router-dom";
 
 
 
@@ -75,24 +75,28 @@ const ButtonGroup = (props: Props) => {
     },
   });
 
-  // const navigate = useNavigate();
+  const navigate = useNavigate();
 
   const handleFinished = async (n: number) => {
-    bookData.isFinished = true;
+    if (bookData.isFinished) {
+      bookData.isFinished = false;
+    } else {
+      bookData.isFinished = true;
+    }
     // bookData.readAgain = true;
     // setBookData(bookData);
     await axios.put(`${URL}/myBookData/${n}`, bookData);
-    // navigate("/home")
+    navigate("/")
   };
 
   const handleRead = async (n: number) => {
-    await axios.put(`/myBookData/${n}`, bookData);
-    // navigate("/home");
+    await axios.put(`${URL}/myBookData/${n}`, bookData);
+    navigate("/");
   };
 
   useEffect(() => {
     const myData = async () => {
-      const res = await axios.get(`${URL}/myBookData/${10}`);
+      const res = await axios.get(`http://localhost:5000/myBookDetail/`);
       const books = res.data;
       setBookData(books);
     };

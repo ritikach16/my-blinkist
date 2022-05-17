@@ -1,9 +1,9 @@
 {
   "myBookDetail": {
-    "id": 1,
-    "title": "Being Boss",
-    "author": "Kathleen Shannon and Emily",
-    "image": "/Images/cardImage1.png",
+    "id": 5,
+    "title": "Lives of the Stoics",
+    "author": "Ryan Holiday, Stephen Hansel",
+    "image": "/Images/5.png",
     "minutes": "13-minute read",
     "addToLib": true,
     "isFinished": false,

@@ -4,7 +4,7 @@ import React, { useEffect, useState } from "react";
 import Cards from "../Cards/Index";
 
 interface Props {
-  id?: number;
+  id : number;
   title?: string;
   author?: string;
   image?: string;
@@ -58,11 +58,8 @@ const CardGroup = (props: CardGroupProps) => {
         );
       }
     }
-  }, [displayBookDetails, props.type]);
+  }, [props.bookData, props.type]);
 
-  const getBookDetails = (num : number) => {
-     // route to bookdetail page;
-  }
 
   return (
     <Box className={classes.container}>
@@ -70,14 +67,14 @@ const CardGroup = (props: CardGroupProps) => {
         return (
           <Cards
             key={key}
-            num={key}
+            num={books.id}
             title={books.title}
             author={books.author}
             reads={books.reads}
             minutes={books.minutes}
             image = {books.image}
             addToLib = {books.addToLib}
-            onClick = {() => getBookDetails(key)}
+            onClick = {() => console.log("inside book detail")}
           />
         );
       })}

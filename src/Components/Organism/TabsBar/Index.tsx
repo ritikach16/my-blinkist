@@ -6,7 +6,6 @@ import Cards from "../Cards/Index";
 import { makeStyles } from "@mui/styles";
 import axios from "axios";
 import URL from "../../../AllData/Url";
-import { useNavigate } from "react-router-dom";
 
 const useStyles = makeStyles({
   textStyles: {
@@ -60,7 +59,6 @@ const TabsBar = () => {
   ]);
 
   const [count, setCount] = useState(0);
-const navigate = useNavigate();
   const handleChange = (event: React.SyntheticEvent, newValue: string) => {
     setSelectedTabs(newValue);
   };
@@ -77,12 +75,11 @@ const navigate = useNavigate();
     const myBookdata = async () => {
       const res = await axios.get(`${URL}/myBookData/`);
       const books = res.data;
-      
+
       setBooksTab(books);
-      
     };
     myBookdata();
-  }, []);
+  }, [count]);
 
   return (
     <TabContext value={selectedTabs}>
@@ -92,17 +89,11 @@ const navigate = useNavigate();
         aria-label="checking"
       >
         <Tab
-          onClick={handleClick}
           className={classes.textStyles}
           label="Currently reading"
           value="1"
         />
-        <Tab
-          className={classes.textStyles}
-          onClick={handleClick}
-          label="Finished"
-          value="2"
-        />
+        <Tab className={classes.textStyles} label="Finished" value="2" />
       </TabList>
       <TabPanel sx={{ padding: "0px" }} value="1">
         <Box className={classes.container}>
@@ -120,7 +111,7 @@ const navigate = useNavigate();
                   isFinished={!books.isFinished}
                   image={books.image}
                   num={books.id}
-                  onClick={ () => console.log("")}
+                  onClick={handleClick}
                 />
               );
             })}
@@ -142,7 +133,7 @@ const navigate = useNavigate();
                   image={books.image}
                   num={books.id}
                   readAgain={true}
-                  onClick={()=> {console.log("")}}
+                  onClick={handleClick}
                 />
               );
             })}

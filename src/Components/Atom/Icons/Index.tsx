@@ -10,7 +10,7 @@ export interface Props extends HTMLAttributes<HTMLButtonElement> {
   }
 const Icons = (props : Props) => {
     return (
-        <div onClick={props.onClick} className={props.className} style={props.style}>
+        <div role="icon" onClick={props.onClick} className={props.className} style={props.style}>
             {props.children}
         </div>
     )

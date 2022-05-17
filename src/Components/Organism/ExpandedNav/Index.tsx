@@ -16,6 +16,8 @@ const useStyles = makeStyles({
     flexDirection: "column",
     alignItems: "center",
     width: "100%",
+    position: "absolute",
+    top: "86px",
   },
   subContainers: {
     display: "flex !important",

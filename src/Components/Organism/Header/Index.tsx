@@ -12,6 +12,7 @@ import Icons from "../../Atom/Icons/Index";
 import Dropdown from "../../Molecule/DropDown/Index";
 import {SearchIcon} from "../../../Icons";
 import { useNavigate } from "react-router-dom";
+import LogOutButton from "../LogoutBtn/Index";
 
 const theme = createTheme({
   components: {
@@ -92,11 +93,8 @@ const MainContainer = styled("div")({
 const Header = () => {
   const classes = useStyles();
   const [isExploreClicked, setExploreClicked] = useState<boolean>(false);
-  const [isAccountClicked, setAccountClicked] = useState<boolean>(false);
   const [iconStyle, setIconStyle] = useState({ transform: "rotate(0deg)" });
-  const [accountStyle, setAccountStyle] = useState({
-    transform: "rotate(0deg)",
-  });
+ 
   const displayExploreDropdown = () => {
     isExploreClicked ? setExploreClicked(false) : setExploreClicked(true);
 
@@ -107,19 +105,9 @@ const Header = () => {
     }
   };
 
-  const displayAccountDetails = () => {
-    isAccountClicked ? setAccountClicked(false) : setAccountClicked(true);
-
-    if (isAccountClicked) {
-      setAccountStyle({ transform: "rotate(0deg)" });
-    } else {
-      setAccountStyle({ transform: "rotate(180deg)" });
-    }
-  };
 
   const navigate = useNavigate();
   const handleClick = () => {
-    //  history.push("/")
     navigate("/");
   }
 
@@ -142,12 +130,7 @@ const Header = () => {
           </Typography>
         </MainContainer>
         <MainContainer>
-          <Dropdown
-            title="Account"
-            className={classes.account}
-            onClick={displayAccountDetails}
-            style={accountStyle}
-          />
+          <LogOutButton/>
         </MainContainer>
       </Container>
       {isExploreClicked ? <ExpandedNav/> : null}

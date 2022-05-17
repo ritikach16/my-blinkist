@@ -129,12 +129,12 @@ const Cards = (props: CardBookPropsInterface) => {
         setBookData(books);
         // console.log(bookData);
       }
+      
     };
     myBookData(props.num);
   }, [count, props.num]);
 
   const handleFinished = async (n: number) => {
-    // bookData.isFinished = true;
     if (bookData.isFinished) {
       bookData.isFinished = false;
     } else {
@@ -145,14 +145,13 @@ const Cards = (props: CardBookPropsInterface) => {
     } else {
       setCount(count - 1);
     }
-
+    props.onClick === undefined ? (console.log("")) : props.onClick()
     await axios.put(`${URL}/myBookData/${n}`, bookData);
   };
 
   const handleCardData = async(n : number) => {
     const res = await axios.get(`${URL}/myBookData/${n}`);
-    // console.log(res.data); getting the data
-    
+    props.onClick === undefined ? (console.log("")) : props.onClick()
     await axios.put(`http://localhost:5000/myBookDetail/`, res.data);
     navigate("/bookDetails")
   }
@@ -165,7 +164,9 @@ const Cards = (props: CardBookPropsInterface) => {
     } else {
       setCount(count - 1);
     }
+    props.onClick === undefined ? (console.log("")) : props.onClick()
     await axios.put(`${URL}/myBookData/${10}`, bookData); // updating lib
+    navigate("/");
   };
 
   const classes = useStyles();

@@ -1,7 +1,7 @@
 import { ComponentMeta, ComponentStory } from '@storybook/react'
 import React from 'react'
 import Banner from '../../Molecule/Banner/Index';
-import SearchBar from '../../Molecule/SearchBar/Index';
+import SearchBar from '../../Organism/SearchBar/Index';
 import Footer from '../../Organism/Footer/Index';
 import Header from '../../Organism/Header/Index';
 import Entrepreneurship from './Index'
