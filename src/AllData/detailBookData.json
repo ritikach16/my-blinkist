@@ -1,10 +1,11 @@
 {
   "myBookDetail": {
-    "id": 5,
-    "title": "Lives of the Stoics",
-    "author": "Ryan Holiday, Stephen Hansel",
-    "image": "/Images/5.png",
-    "minutes": "13-minute read",
+    "id": 3,
+    "title": "Employee to Entrepreneur",
+    "author": "Steve Glaveski",
+    "image": "/Images/cardImage3.png",
+    "minutes": "14-minute read",
+    "reads": "1.9k reads",
     "addToLib": true,
     "isFinished": false,
     "type": {

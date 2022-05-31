@@ -103,7 +103,7 @@ const ButtonGroup = (props: Props) => {
     return () => {
       myData();
     };
-  }, [bookData]);
+  });
 
   const classes = useStyles();
   return (
