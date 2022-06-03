@@ -1,11 +1,10 @@
 {
   "myBookDetail": {
-    "id": 3,
-    "title": "Employee to Entrepreneur",
-    "author": "Steve Glaveski",
-    "image": "/Images/cardImage3.png",
-    "minutes": "14-minute read",
-    "reads": "1.9k reads",
+    "id": 1,
+    "title": "Being Boss",
+    "author": "Kathleen Shannon and Emily",
+    "image": "/Images/cardImage1.png",
+    "minutes": "13-minute read",
     "addToLib": true,
     "isFinished": false,
     "type": {

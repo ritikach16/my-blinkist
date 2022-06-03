@@ -85,14 +85,20 @@ const ButtonGroup = (props: Props) => {
     }
     // bookData.readAgain = true;
     // setBookData(bookData);
-    await axios.put(`${URL}/myBookData/${n}`, bookData);
+    await axios.put(`${URL}/myBookData/${bookData.id}`, bookData);
     navigate("/")
   };
 
   const handleRead = async (n: number) => {
-    await axios.put(`${URL}/myBookData/${n}`, bookData);
+    if(bookData.isFinished){
+      bookData.readAgain = true;
+      bookData.isFinished = false;
+    }
+    await axios.put(`${URL}/myBookData/${bookData.id}`, bookData);
     navigate("/");
   };
+
+
 
   useEffect(() => {
     const myData = async () => {
